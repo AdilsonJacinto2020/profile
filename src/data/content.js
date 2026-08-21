@@ -1,15 +1,16 @@
 export const profile = {
-  name: 'Adilson dos Santos Jacinto',
-  role: 'Desenvolvedor Full-Stack',
-  location: 'Luanda, Angola',
-  headline: 'A transformar processos manuais em sistemas web seguros, modernos e escaláveis.',
+  name: import.meta.env.VITE_PROFILE_NAME || 'Adilson dos Santos Jacinto',
+  role: import.meta.env.VITE_PROFILE_ROLE || 'Desenvolvedor Full-Stack',
+  location: import.meta.env.VITE_PROFILE_LOCATION || 'Luanda, Angola',
+  headline: import.meta.env.VITE_PROFILE_HEADLINE || 'A transformar processos manuais em sistemas web seguros, modernos e escaláveis.',
   summary:
+    import.meta.env.VITE_PROFILE_SUMMARY ||
     'Mais de 3 anos de experiência a criar e implantar software de gestão em produção para clientes reais em Luanda — escolas e oficinas — utilizando React, NestJS e PostgreSQL. Aluno do Common Core da 42 Luanda.',
-  email: 'adilson@adijacinto.tech',
-  whatsapp: '+244900000000',
-  github: 'https://github.com/adilsonjacinto',
-  linkedin: 'https://linkedin.com/in/adilsonjacinto',
-  website: 'https://adijacinto.tech',
+  email: import.meta.env.VITE_CONTACT_EMAIL || 'adilson@adijacinto.tech',
+  whatsapp: import.meta.env.VITE_CONTACT_WHATSAPP || '+244900000000',
+  github: import.meta.env.VITE_CONTACT_GITHUB || 'https://github.com/adilsonjacinto',
+  linkedin: import.meta.env.VITE_CONTACT_LINKEDIN || 'https://linkedin.com/in/adilsonjacinto',
+  website: import.meta.env.VITE_CONTACT_WEBSITE || 'https://adijacinto.tech',
 }
 
 export const systems = [
