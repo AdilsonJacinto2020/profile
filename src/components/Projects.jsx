@@ -1,8 +1,9 @@
-import { projects } from '../data/content'
+import { Link } from 'react-router-dom'
+import { projects as defaultProjects } from '../data/content'
 import SectionTitle from './SectionTitle'
-import { Server, Database, Layers, ArrowUpRight, Shield, Cpu } from 'lucide-react'
+import { Server, Database, Layers, ArrowUpRight, Shield, Cpu, ChevronRight } from 'lucide-react'
 
-export default function Projects() {
+export default function Projects({ projects = defaultProjects }) {
   return (
     <section id="projetos" className="border-b border-border-subtle bg-bg px-4 py-20 sm:px-6">
       <div className="mx-auto max-w-7xl">
@@ -17,7 +18,7 @@ export default function Projects() {
           {projects.map((p, idx) => (
             <article
               key={p.id}
-              className="industrial-card group flex flex-col justify-between p-6 hover:shadow-industrial-glow"
+              className="industrial-card group flex flex-col justify-between p-6 hover:shadow-glow"
             >
               {/* Card Header */}
               <div>
@@ -70,7 +71,7 @@ export default function Projects() {
                 </div>
               </div>
 
-              {/* Card Footer: Stack & Impact */}
+              {/* Card Footer: Stack & Impact & Detail Link */}
               <div className="mt-8 space-y-4 border-t border-border-subtle pt-4">
                 {/* Tech Stack Pills */}
                 <div className="flex flex-wrap gap-1.5">
@@ -91,6 +92,17 @@ export default function Projects() {
                     {p.impact}
                   </div>
                 )}
+
+                {/* Detail Page Link via Data Router */}
+                <div className="pt-2">
+                  <Link
+                    to={`/projetos/${p.id}`}
+                    className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-accent hover:underline"
+                  >
+                    <span>Ver Especificação Completa</span>
+                    <ChevronRight size={14} />
+                  </Link>
+                </div>
               </div>
             </article>
           ))}

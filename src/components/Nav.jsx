@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { profile } from '../data/content'
 import { Terminal, Menu, X, ArrowUpRight, Sun, Moon } from 'lucide-react'
 
 const links = [
-  { href: '#projetos', num: '01', label: 'Projetos' },
-  { href: '#terminal', num: '02', label: 'Terminal' },
-  { href: '#skills', num: '03', label: 'Stack' },
-  { href: '#experiencia', num: '04', label: 'Trajetória' },
-  { href: '#contacto', num: '05', label: 'Contacto' },
+  { href: '/#projetos', num: '01', label: 'Projetos' },
+  { href: '/#terminal', num: '02', label: 'Terminal' },
+  { href: '/#skills', num: '03', label: 'Stack' },
+  { href: '/#experiencia', num: '04', label: 'Trajetória' },
+  { href: '/#contacto', num: '05', label: 'Contacto' },
 ]
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const location = useLocation()
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme')
@@ -39,8 +41,8 @@ export default function Nav() {
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-bg/90 backdrop-blur-md transition-colors duration-200">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         {/* Brand */}
-        <a 
-          href="#top" 
+        <Link 
+          to="/" 
           className="group flex items-center gap-3 font-mono text-xs font-semibold tracking-wider text-fg transition-colors hover:text-accent"
         >
           <div className="flex h-7 w-7 items-center justify-center border border-border-medium bg-bg-card font-mono text-xs text-accent transition-colors group-hover:border-accent">
@@ -50,7 +52,7 @@ export default function Nav() {
             <span className="leading-tight">ADILSON JACINTO</span>
             <span className="text-[10px] text-fg-faint">FULL-STACK ENG</span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden items-center gap-6 lg:flex">

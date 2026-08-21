@@ -1,25 +1,29 @@
-import Nav from './components/Nav'
-import Hero from './components/Hero'
-import Projects from './components/Projects'
-import InteractiveTerminal from './components/InteractiveTerminal'
-import Skills from './components/Skills'
-import Experience from './components/Experience'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import RootLayout from './layouts/RootLayout'
+import HomePage, { homeLoader } from './pages/HomePage'
+import ProjectDetailPage, { projectLoader } from './pages/ProjectDetailPage'
+import ErrorPage from './pages/ErrorPage'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+        loader: homeLoader,
+      },
+      {
+        path: 'projetos/:id',
+        element: <ProjectDetailPage />,
+        loader: projectLoader,
+      },
+    ],
+  },
+])
 
 export default function App() {
-  return (
-    <div className="min-h-screen bg-bg text-fg">
-      <Nav />
-      <main>
-        <Hero />
-        <Projects />
-        <InteractiveTerminal />
-        <Skills />
-        <Experience />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
