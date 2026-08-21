@@ -11,10 +11,12 @@ export default function InteractiveTerminal() {
       text: 'AdilsonOS Interactive CLI [v3.4.2-prod]\nDigite "help" para ver os comandos disponíveis.',
     },
   ])
-  const terminalEndRef = useRef(null)
+  const terminalBodyRef = useRef(null)
 
   const scrollToBottom = () => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight
+    }
   }
 
   useEffect(() => {
@@ -144,7 +146,7 @@ LINKEDIN: ${profile.linkedin}`,
           </div>
 
           {/* Terminal Body */}
-          <div className="p-4 sm:p-6 min-h-[280px] max-h-[420px] overflow-y-auto space-y-3 text-xs sm:text-sm bg-[#FFFFFF] dark:bg-[#0E131F]">
+          <div ref={terminalBodyRef} className="p-4 sm:p-6 min-h-[280px] max-h-[420px] overflow-y-auto space-y-3 text-xs sm:text-sm bg-[#FFFFFF] dark:bg-[#0E131F] scroll-smooth">
             {history.map((h, i) => (
               <div key={i} className="leading-relaxed">
                 {h.type === 'user' && (
@@ -167,7 +169,6 @@ LINKEDIN: ${profile.linkedin}`,
                 )}
               </div>
             ))}
-            <div ref={terminalEndRef} />
           </div>
 
           {/* Quick command buttons */}
