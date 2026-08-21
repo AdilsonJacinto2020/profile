@@ -18,7 +18,7 @@ export default function Projects({ projects = defaultProjects }) {
           {projects.map((p, idx) => (
             <article
               key={p.id}
-              className="industrial-card group flex flex-col justify-between p-6 hover:shadow-glow"
+              className="reveal-on-scroll industrial-card group flex flex-col justify-between p-6 hover:shadow-glow hover:-translate-y-1 transition-all duration-300"
             >
               {/* Card Header */}
               <div>

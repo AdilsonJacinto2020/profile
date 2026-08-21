@@ -6,6 +6,7 @@ import Skills from '../components/Skills'
 import Experience from '../components/Experience'
 import Contact from '../components/Contact'
 import { profile, projects, systems, skills, experience, education, languages } from '../data/content'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 // Data Router Loader
 export async function homeLoader() {
@@ -23,6 +24,7 @@ export async function homeLoader() {
 
 export default function HomePage() {
   const data = useLoaderData()
+  useScrollReveal()
 
   return (
     <>
@@ -35,3 +37,4 @@ export default function HomePage() {
     </>
   )
 }
+

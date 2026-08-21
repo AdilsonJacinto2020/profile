@@ -126,7 +126,7 @@ LINKEDIN: ${profile.linkedin}`,
           description="Inspecione dados técnicos, rotas de infraestrutura e detalhes de arquitetura diretamente através da linha de comandos."
         />
 
-        <div className="industrial-card border-border-medium bg-[#0E131F] text-[#F4F5F7] shadow-card overflow-hidden font-mono">
+        <div className="reveal-on-scroll industrial-card border-border-medium bg-[#0E131F] text-[#F4F5F7] shadow-card hover:shadow-glow transition-all duration-300 overflow-hidden font-mono">
           {/* Terminal Titlebar */}
           <div className="flex items-center justify-between border-b border-[#1F293D] bg-[#161D2E] px-4 py-3">
             <div className="flex items-center gap-2">

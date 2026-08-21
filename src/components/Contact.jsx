@@ -52,8 +52,8 @@ export default function Contact() {
 
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           {/* Direct channels column */}
-          <div className="space-y-4">
-            <div className="industrial-card border-border-medium bg-bg-card p-6">
+          <div className="reveal-on-scroll space-y-4">
+            <div className="industrial-card border-border-medium bg-bg-card p-6 shadow-card hover:shadow-glow transition-all duration-300">
               <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-fg border-b border-border-subtle pb-3">
                 Canais Diretos de Comunicação
               </h3>
@@ -134,7 +134,8 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="industrial-card border-border-medium bg-bg-card p-6 sm:p-8 space-y-5">
+          {/* Form column */}
+          <form onSubmit={handleSubmit} className="reveal-on-scroll industrial-card border-border-medium bg-bg-card p-6 sm:p-8 shadow-card hover:shadow-glow transition-all duration-300 space-y-5">
             <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-fg border-b border-border-subtle pb-3">
               Formulário de Mensagem Direta
             </h3>

@@ -1,25 +1,57 @@
+import { useState, useEffect } from 'react'
 import { profile, systems } from '../data/content'
-import { ArrowDownRight, Terminal, Server, ShieldCheck, Database, CheckCircle2, Activity } from 'lucide-react'
+import { ArrowDownRight, Terminal, Server, ShieldCheck, Database, CheckCircle2, Activity, Sparkles } from 'lucide-react'
+
+// Hook simples de contador animado
+function useCounter(targetValue, duration = 1200) {
+  const [count, setCount] = useState(0)
+  const isNumber = !isNaN(Number(targetValue))
+  const numericTarget = isNumber ? Number(targetValue) : 0
+
+  useEffect(() => {
+    if (!isNumber) return
+    let start = 0
+    const stepTime = Math.abs(Math.floor(duration / (numericTarget || 1)))
+    const timer = setInterval(() => {
+      start += 1
+      setCount(start)
+      if (start >= numericTarget) {
+        clearInterval(timer)
+      }
+    }, Math.max(stepTime, 20))
+
+    return () => clearInterval(timer)
+  }, [numericTarget, isNumber, duration])
+
+  return isNumber ? count : targetValue
+}
 
 export default function Hero() {
+  const expCount = useCounter(3, 1000)
+  const realCases = useCounter(100, 1200)
+
   return (
-    <section id="top" className="relative border-b border-border-subtle bg-bg px-4 pb-20 pt-12 sm:px-6 md:pt-20">
+    <section id="top" className="relative overflow-hidden border-b border-border-subtle bg-bg px-4 pb-20 pt-12 sm:px-6 md:pt-20">
+      {/* Background Engineering Grid Pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none animate-pulseGlow" />
+
       <div className="relative mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           
           {/* Main Statement */}
-          <div>
+          <div className="reveal-on-scroll">
             {/* Location & Status Tag */}
-            <div className="inline-flex items-center gap-2 border border-border-medium bg-bg-card px-3 py-1 text-xs font-mono">
-              <span className="h-2 w-2 rounded-full bg-accent" />
+            <div className="inline-flex items-center gap-2 border border-border-medium bg-bg-card/90 backdrop-blur-sm px-3 py-1 text-xs font-mono shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-accent animate-ping" />
               <span className="text-fg-muted">{profile.location.toUpperCase()}</span>
               <span className="text-fg-faint">/</span>
-              <span className="text-accent font-medium">FULL-STACK PRODUCTION SYSTEMS</span>
+              <span className="text-accent font-medium tracking-wide">FULL-STACK PRODUCTION SYSTEMS</span>
             </div>
 
             {/* Main Headline */}
             <h1 className="mt-6 font-display text-4xl font-extrabold tracking-tight text-fg sm:text-5xl lg:text-6xl lg:leading-[1.08]">
-              Construo <span className="text-accent underline decoration-accent/40 decoration-wavy underline-offset-8">sistemas de gestão</span> de missão crítica em produção.
+              Construo <span className="text-accent underline decoration-accent/40 decoration-wavy underline-offset-8 transition-colors hover:decoration-accent">sistemas de gestão</span> de missão crítica em produção.
             </h1>
 
             {/* Subtitle / Summary */}
@@ -27,18 +59,24 @@ export default function Hero() {
               <strong className="text-fg font-semibold">{profile.name}</strong> — {profile.summary}
             </p>
 
-            {/* Key Metric Highlights */}
-            <div className="mt-8 grid grid-cols-3 gap-3 border-y border-border-subtle py-4">
-              <div>
-                <div className="font-mono text-2xl font-bold text-fg sm:text-3xl">3+</div>
+            {/* Key Metric Highlights with Animated Counters */}
+            <div className="mt-8 grid grid-cols-3 gap-3 border-y border-border-subtle bg-bg-card/40 backdrop-blur-sm py-4 px-2">
+              <div className="transition-transform hover:scale-105">
+                <div className="font-mono text-2xl font-bold text-fg sm:text-3xl">
+                  {expCount}+
+                </div>
                 <div className="font-mono text-[11px] uppercase tracking-wider text-fg-faint">Anos de Exp.</div>
               </div>
-              <div>
-                <div className="font-mono text-2xl font-bold text-accent sm:text-3xl">100%</div>
+              <div className="transition-transform hover:scale-105">
+                <div className="font-mono text-2xl font-bold text-accent sm:text-3xl">
+                  {realCases}%
+                </div>
                 <div className="font-mono text-[11px] uppercase tracking-wider text-fg-faint">Casos Reais</div>
               </div>
-              <div>
-                <div className="font-mono text-2xl font-bold text-tech-green sm:text-3xl">42</div>
+              <div className="transition-transform hover:scale-105">
+                <div className="font-mono text-2xl font-bold text-tech-green sm:text-3xl">
+                  42
+                </div>
                 <div className="font-mono text-[11px] uppercase tracking-wider text-fg-faint">Common Core</div>
               </div>
             </div>
@@ -47,14 +85,14 @@ export default function Hero() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="#projetos"
-                className="group flex items-center gap-2 border border-accent bg-accent px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-bg transition-all hover:bg-transparent hover:text-accent"
+                className="group flex items-center gap-2 border border-accent bg-accent px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-white transition-all duration-300 hover:bg-transparent hover:text-accent hover:shadow-glow"
               >
                 <span>Explorar Sistemas</span>
-                <ArrowDownRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+                <ArrowDownRight size={16} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:translate-y-1" />
               </a>
               <a
                 href="#contacto"
-                className="flex items-center gap-2 border border-border-medium bg-bg-card px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-fg transition-colors hover:border-fg hover:text-accent"
+                className="flex items-center gap-2 border border-border-medium bg-bg-card px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-fg transition-all duration-300 hover:border-accent hover:text-accent hover:shadow-subtle"
               >
                 <span>Falar Diretamente</span>
               </a>
@@ -62,26 +100,26 @@ export default function Hero() {
 
             {/* Quick Links */}
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs text-fg-faint">
-              <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors">
-                github.com/adilsonjacinto
+              <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors flex items-center gap-1">
+                <span>github.com/adilsonjacinto</span>
               </a>
               <span className="hidden sm:inline text-border-medium">·</span>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors">
-                linkedin.com/in/adilsonjacinto
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors flex items-center gap-1">
+                <span>linkedin.com/in/adilsonjacinto</span>
               </a>
               <span className="hidden sm:inline text-border-medium">·</span>
-              <a href={profile.website} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors">
-                adijacinto.tech
+              <a href={profile.website} target="_blank" rel="noreferrer" className="hover:text-accent transition-colors flex items-center gap-1">
+                <span>adijacinto.tech</span>
               </a>
             </div>
           </div>
 
           {/* Technical HUD / System Monitor Panel */}
-          <div className="industrial-card border-border-medium bg-bg-card p-6 shadow-industrial">
+          <div className="reveal-on-scroll industrial-card border-border-medium bg-bg-card/90 backdrop-blur-md p-6 shadow-card hover:shadow-glow transition-all duration-300">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-border-subtle pb-4">
               <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-fg-muted">
-                <Activity size={14} className="text-accent" />
+                <Activity size={14} className="text-accent animate-spin" style={{ animationDuration: '6s' }} />
                 <span>telemetry_monitor.sys</span>
               </div>
               <div className="flex items-center gap-2 font-mono text-[11px] text-tech-green">
@@ -90,21 +128,21 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Live Systems List */}
+            {/* Live Systems List with subtle hover animation */}
             <div className="mt-5 space-y-3">
               {systems.map((s, idx) => (
                 <div
                   key={s.label}
-                  className="group flex items-center justify-between border border-border-subtle bg-bg-subtle p-3.5 transition-colors hover:border-border-strong"
+                  className="group flex items-center justify-between border border-border-subtle bg-bg-subtle/80 p-3.5 transition-all duration-200 hover:border-accent/40 hover:bg-bg-hover hover:translate-x-1"
                 >
                   <div className="flex items-start gap-3">
-                    <span className="font-mono text-xs text-fg-faint">0{idx + 1}</span>
+                    <span className="font-mono text-xs text-fg-faint group-hover:text-accent transition-colors">0{idx + 1}</span>
                     <div>
-                      <h3 className="font-mono text-sm font-semibold text-fg">{s.label}</h3>
+                      <h3 className="font-mono text-sm font-semibold text-fg group-hover:text-accent transition-colors">{s.label}</h3>
                       <p className="font-mono text-xs text-fg-faint">{s.note}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5 font-mono text-[10px] font-medium uppercase tracking-wider text-tech-green border border-tech-green/30 bg-tech-green/10 px-2 py-0.5">
+                  <div className="flex items-center gap-1.5 font-mono text-[10px] font-medium uppercase tracking-wider text-tech-green border border-tech-green/30 bg-tech-green/10 px-2 py-0.5 shadow-sm">
                     <CheckCircle2 size={10} />
                     <span>{s.status === 'online' ? 'ONLINE' : 'SHIPPED'}</span>
                   </div>
@@ -114,14 +152,14 @@ export default function Hero() {
 
             {/* Spec Matrix Box */}
             <div className="mt-5 grid grid-cols-2 gap-2 border-t border-border-subtle pt-4 font-mono text-[11px]">
-              <div className="border border-border-subtle/70 bg-bg/50 p-2.5">
+              <div className="border border-border-subtle/70 bg-bg/60 p-2.5 transition-colors hover:border-border-strong">
                 <div className="text-fg-faint flex items-center gap-1.5 mb-1">
                   <Server size={12} className="text-accent" />
                   <span>CORE STACK</span>
                 </div>
                 <div className="text-fg font-medium">React · NestJS · PostgreSQL</div>
               </div>
-              <div className="border border-border-subtle/70 bg-bg/50 p-2.5">
+              <div className="border border-border-subtle/70 bg-bg/60 p-2.5 transition-colors hover:border-border-strong">
                 <div className="text-fg-faint flex items-center gap-1.5 mb-1">
                   <ShieldCheck size={12} className="text-tech-cyan" />
                   <span>SECURITY</span>
@@ -132,7 +170,10 @@ export default function Hero() {
 
             {/* Footer note */}
             <div className="mt-4 flex items-center justify-between font-mono text-[10px] text-fg-faint">
-              <span>UPTIME: 99.98% PROD</span>
+              <span className="flex items-center gap-1">
+                <span className="h-1.5 w-1.5 bg-tech-green rounded-full" />
+                UPTIME: 99.98% PROD
+              </span>
               <span>HOSTED & MAINTAINED</span>
             </div>
           </div>
@@ -142,3 +183,4 @@ export default function Hero() {
     </section>
   )
 }
+

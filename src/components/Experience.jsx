@@ -25,7 +25,7 @@ export default function Experience() {
 
             <div className="space-y-4">
               {experience.map((e) => (
-                <div key={e.org} className="industrial-card border-border-medium bg-bg p-6">
+                <div key={e.org} className="reveal-on-scroll industrial-card border-border-medium bg-bg p-6 hover:shadow-card hover:-translate-y-1 transition-all duration-300">
                   <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-border-subtle pb-3">
                     <div>
                       <h4 className="font-display text-base font-bold text-fg">{e.org}</h4>

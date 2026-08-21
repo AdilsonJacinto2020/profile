@@ -47,9 +47,24 @@ export default {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.2 },
         },
+        scanline: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(1000%)' },
+        },
+        pulseGlow: {
+          '0%, 100%': { opacity: 0.4 },
+          '50%': { opacity: 0.8 },
+        },
+        floatSubtle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-4px)' },
+        },
       },
       animation: {
         blink: 'blink 1.8s ease-in-out infinite',
+        scanline: 'scanline 8s linear infinite',
+        pulseGlow: 'pulseGlow 3s ease-in-out infinite',
+        floatSubtle: 'floatSubtle 4s ease-in-out infinite',
       },
     },
   },

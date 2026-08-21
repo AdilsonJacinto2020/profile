@@ -26,7 +26,7 @@ export default function Skills() {
             return (
               <div 
                 key={group.category} 
-                className="industrial-card group p-6 hover:shadow-industrial"
+                className="reveal-on-scroll industrial-card group p-6 hover:shadow-card hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between border-b border-border-subtle pb-4">
