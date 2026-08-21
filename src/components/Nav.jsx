@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { profile } from '../data/content'
 import { Terminal, Menu, X, ArrowUpRight, Sun, Moon } from 'lucide-react'
 
 const links = [
-  { href: '/#projetos', num: '01', label: 'Projetos' },
-  { href: '/#terminal', num: '02', label: 'Terminal' },
-  { href: '/#skills', num: '03', label: 'Stack' },
-  { href: '/#experiencia', num: '04', label: 'Trajetória' },
-  { href: '/#contacto', num: '05', label: 'Contacto' },
+  { href: '#projetos', id: 'projetos', num: '01', label: 'Projetos' },
+  { href: '#terminal', id: 'terminal', num: '02', label: 'Terminal' },
+  { href: '#skills', id: 'skills', num: '03', label: 'Stack' },
+  { href: '#experiencia', id: 'experiencia', num: '04', label: 'Trajetória' },
+  { href: '#contacto', id: 'contacto', num: '05', label: 'Contacto' },
 ]
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+  
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme')
@@ -37,12 +39,39 @@ export default function Nav() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
   }
 
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault()
+    setMobileMenuOpen(false)
+
+    if (location.pathname !== '/') {
+      navigate(`/#${targetId}`)
+      setTimeout(() => {
+        const el = document.getElementById(targetId)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    } else {
+      const el = document.getElementById(targetId)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+        window.history.pushState(null, '', `/#${targetId}`)
+      }
+    }
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-bg/90 backdrop-blur-md transition-colors duration-200">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         {/* Brand */}
         <Link 
           to="/" 
+          onClick={() => {
+            setMobileMenuOpen(false)
+            if (location.pathname === '/') {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
+          }}
           className="group flex items-center gap-3 font-mono text-xs font-semibold tracking-wider text-fg transition-colors hover:text-accent"
         >
           <div className="flex h-7 w-7 items-center justify-center border border-border-medium bg-bg-card font-mono text-xs text-accent transition-colors group-hover:border-accent">
@@ -59,8 +88,9 @@ export default function Nav() {
           {links.map((l) => (
             <a
               key={l.href}
-              href={l.href}
-              className="group flex items-center gap-1.5 font-mono text-xs text-fg-muted transition-colors hover:text-fg"
+              href={`/#${l.id}`}
+              onClick={(e) => handleNavClick(e, l.id)}
+              className="group flex items-center gap-1.5 font-mono text-xs text-fg-muted transition-colors hover:text-fg cursor-pointer"
             >
               <span className="text-[10px] text-fg-faint transition-colors group-hover:text-accent">
                 {l.num}.
@@ -76,7 +106,7 @@ export default function Nav() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-8 w-8 items-center justify-center border border-border-medium bg-bg-card text-fg-muted transition-all hover:border-accent hover:text-accent"
+            className="flex h-8 w-8 items-center justify-center border border-border-medium bg-bg-card text-fg-muted transition-all hover:border-accent hover:text-accent cursor-pointer"
             aria-label={`Alternar para modo ${theme === 'dark' ? 'claro' : 'escuro'}`}
             title={`Modo ${theme === 'dark' ? 'Claro' : 'Escuro'}`}
           >
@@ -103,7 +133,7 @@ export default function Nav() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-8 w-8 items-center justify-center border border-border-medium bg-bg-card text-fg-muted hover:text-fg lg:hidden"
+            className="flex h-8 w-8 items-center justify-center border border-border-medium bg-bg-card text-fg-muted hover:text-fg lg:hidden cursor-pointer"
             aria-label="Abrir menu"
           >
             {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
@@ -118,9 +148,9 @@ export default function Nav() {
             {links.map((l) => (
               <a
                 key={l.href}
-                href={l.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between border-b border-border-subtle/50 py-2 font-mono text-xs text-fg-muted hover:text-accent"
+                href={`/#${l.id}`}
+                onClick={(e) => handleNavClick(e, l.id)}
+                className="flex items-center justify-between border-b border-border-subtle/50 py-2 font-mono text-xs text-fg-muted hover:text-accent cursor-pointer"
               >
                 <span>{l.label}</span>
                 <span className="text-fg-faint">{l.num}</span>
@@ -132,3 +162,4 @@ export default function Nav() {
     </header>
   )
 }
+
