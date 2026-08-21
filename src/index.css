@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Warm Eye-Friendly Light Mode (Soft Off-White/Zinc Paper) */
+  --bg-main: #F4F4F6;
+  --bg-subtle: #ECECEE;
+  --bg-card: #FCFCFD;
+  --bg-hover: #E4E4E7;
+  
+  --border-subtle: #E2E2E6;
+  --border-medium: #D1D1D6;
+  --border-strong: #A1A1AA;
+  
+  --fg-main: #18181B;
+  --fg-muted: #52525B;
+  --fg-faint: #71717A;
+
+  --tech-cyan: #0284C7;
+  --tech-green: #059669;
+  --tech-amber: #D97706;
+
+  --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+}
+
+.dark {
+  /* High Precision Dark Mode */
+  --bg-main: #0B0D11;
+  --bg-subtle: #12151B;
+  --bg-card: #171B23;
+  --bg-hover: #1E232E;
+  
+  --border-subtle: #232936;
+  --border-medium: #313A4D;
+  --border-strong: #4B5872;
+  
+  --fg-main: #F4F5F7;
+  --fg-muted: #94A3B8;
+  --fg-faint: #64748B;
+
+  --tech-cyan: #38BDF8;
+  --tech-green: #10B981;
+  --tech-amber: #F59E0B;
+
+  --shadow-subtle: 0 0 0 1px #232936, 0 8px 24px -4px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 0 0 1px #232936, 0 16px 32px -8px rgba(0, 0, 0, 0.8);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--fg-main);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+::selection {
+  background-color: #FF4D2E;
+  color: #FFFFFF;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+.eyebrow {
+  @apply font-mono text-[11px] font-semibold uppercase tracking-[0.25em] text-accent;
+}
+
+.industrial-card {
+  @apply relative rounded-none border border-border-subtle bg-bg-card transition-all duration-200;
+}
+
+.industrial-card:hover {
+  @apply border-border-strong shadow-card;
+}
+
+:focus-visible {
+  outline: 2px solid #FF4D2E;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
